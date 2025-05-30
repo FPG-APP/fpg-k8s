@@ -17,3 +17,6 @@ spec:
           image: tobygaskell/fpg:latest
           ports:
             - containerPort: 8000
+          env:
+            - name: flask_env
+              value: production
