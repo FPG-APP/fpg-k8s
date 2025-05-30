@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fpg-api
+  namespace: testing
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: fpg-api
+  template:
+    metadata:
+      labels:
+        app: fpg-api
+    spec:
+      containers:
+        - name: fpg-api
+          image: tobygaskell/fpg:testing
+          ports:
+            - containerPort: 8000
+          env:
+            - name: flask_env
+              value: testing
