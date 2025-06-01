@@ -1,0 +1,15 @@
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: FPG-Pool
+  namespace: metallb-system
+spec:
+  addresses:
+    - 192.168.1.200-192.168.1.202  # Replace with IPs in your home LAN!
+
+---
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  name: FPG-advertisement
+  namespace: metallb-system
