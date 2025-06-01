@@ -1,7 +1,7 @@
 apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
 metadata:
-  name: FPG-Pool
+  name: fpg-pool
   namespace: metallb-system
 spec:
   addresses:
@@ -11,5 +11,5 @@ spec:
 apiVersion: metallb.io/v1beta1
 kind: L2Advertisement
 metadata:
-  name: FPG-advertisement
+  name: fpg-advertisement
   namespace: metallb-system
