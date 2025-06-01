@@ -5,7 +5,7 @@ metadata:
   namespace: metallb-system
 spec:
   addresses:
-    - 192.168.0.200-192.168.0.202  # Replace with IPs in your home LAN!
+    - 192.168.0.220-192.168.0.222  # Replace with IPs in your home LAN!
 
 ---
 apiVersion: metallb.io/v1beta1
