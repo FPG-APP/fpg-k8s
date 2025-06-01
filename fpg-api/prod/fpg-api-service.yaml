@@ -6,6 +6,7 @@ spec:
   selector:
     app: fpg-api
   ports:
-    - port: 80
-      targetPort: 8080
+    - name: http
+      port: 80
+      targetPort: 8000
   type: LoadBalancer
