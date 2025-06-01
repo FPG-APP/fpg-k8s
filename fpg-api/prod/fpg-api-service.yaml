@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: fpg-api
+  namespace: prod
 spec:
   selector:
     app: fpg-api
