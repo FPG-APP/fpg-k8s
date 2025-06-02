@@ -16,6 +16,7 @@ spec:
       containers:
         - name: fpg-api
           image: tobygaskell/fpg:testing
+          imagePullPolicy: Always
           ports:
             - containerPort: 8000
           env:
