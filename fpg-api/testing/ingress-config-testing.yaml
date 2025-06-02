@@ -1,18 +1,18 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: prod-ingress
-  namespace: prod
+  name: testing-ingress
+  namespace: testing
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
 spec:
-  ingressClassName: nginx
   tls:
   - hosts:
-    - fpg-app.com
-    secretName: prod-ingress
+    - "testing.fpg-app.com"
+    secretName: "testing-ingress"
+  ingressClassName: nginx
   rules:
-  - host: fpg-app.com
+  - host: testing.fpg-app.com
     http:
       paths:
       - path: /
@@ -21,4 +21,4 @@ spec:
           service:
             name: fpg-api
             port:
-              number: 8000
+              number: 80

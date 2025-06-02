@@ -1,14 +1,12 @@
-# fpg-api-service-prod.yaml
+# fpg-api-service-testing.yaml
 apiVersion: v1
 kind: Service
 metadata:
   name: fpg-api
   namespace: testing
 spec:
-  type: NodePort
   selector:
     app: fpg-api
   ports:
-    - port: 8000
+    - port: 80
       targetPort: 8000
-      nodePort: 30002
