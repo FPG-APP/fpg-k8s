@@ -21,3 +21,23 @@ spec:
           env:
             - name: flask_env
               value: production
+            - name: sql_user
+              valueFrom:
+                secretKeyRef:
+                  name: db-secrets
+                  key: sql_user
+            - name: sql_pass
+              valueFrom:
+                secretKeyRef:
+                  name: db-secrets
+                  key: sql_pass
+            - name: sql_host
+              valueFrom:
+                secretKeyRef:
+                  name: db-secrets
+                  key: sql_host
+            - name: sql_db
+              valueFrom:
+                secretKeyRef:
+                  name: db-secrets
+                  key: sql_db

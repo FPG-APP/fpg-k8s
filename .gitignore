@@ -172,3 +172,6 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+fpg-api/prod/prod-secrets.yaml
+fpg-api/testing/testing-secrets.yaml
