@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: fpg-engine-cron
+  namespace: prod
+spec:
+  schedule: "14 * * * *" 
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: fpg-engine
+              image: tobygaskell/fpg-engine:latest
+              imagePullPolicy: Always
+              args: ["-id", "38", "-init-results", "False", "-mode", "debug"]
+              envFrom:
+                - secretRef:
+                    name: engine-secrets
+          restartPolicy: OnFailure
