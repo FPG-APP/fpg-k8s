@@ -2,9 +2,9 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: fpg-engine-cron
-  namespace: testing  # Change to your desired namespace
+  namespace: testing
 spec:
-  schedule: "30 * * * *"  # Every hour at 2 minutes past the hour
+  schedule: "17 * * * *"
   jobTemplate:
     spec:
       template:
@@ -13,8 +13,8 @@ spec:
             - name: fpg-engine
               image: tobygaskell/fpg-engine:testing
               imagePullPolicy: Always
-              args: ["-id", "33", "-init-results", "False", "-mode", "save"]  # Add any args you want to pass
+              args: ["-current-round", "38", "-last-round", "38", "-init-results", "False", "-mode", "save"]
               envFrom:
                 - secretRef:
-                    name: engine-secrets  # optional: for credentials
+                    name: engine-secrets
           restartPolicy: OnFailure
