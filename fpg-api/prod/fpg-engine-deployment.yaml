@@ -4,7 +4,7 @@ metadata:
   name: fpg-engine-cron
   namespace: prod
 spec:
-  schedule: "14 * * * *" 
+  schedule: "15 * * * *" 
   jobTemplate:
     spec:
       template:
