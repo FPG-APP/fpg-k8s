@@ -1,44 +1,42 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: fpg-api
-  namespace: testing
+  name: house-finances
+  namespace: house
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: fpg-api
+      app: house-finances
   template:
     metadata:
       labels:
-        app: fpg-api
+        app: house-finances
     spec:
       containers:
-        - name: fpg-api
-          image: tobygaskell/fpg:testing
+        - name: house-finances
+          image: tobygaskell/house-finances:latest
           imagePullPolicy: Always
           ports:
-            - containerPort: 8000
+            - containerPort: 8501
           env:
-            - name: flask_env
-              value: testing
-            - name: SQL_USER
+            - name: sql_user
               valueFrom:
                 secretKeyRef:
                   name: db-secrets
-                  key: SQL_USER
-            - name: SQL_PASS
+                  key: sql_user
+            - name: sql_password
               valueFrom:
                 secretKeyRef:
                   name: db-secrets
-                  key: SQL_PASS
-            - name: SQL_HOST
+                  key: sql_pass
+            - name: sql_host
               valueFrom:
                 secretKeyRef:
                   name: db-secrets
-                  key: SQL_HOST
-            - name: SQL_DB
+                  key: sql_host
+            - name: sql_db
               valueFrom:
                 secretKeyRef:
                   name: db-secrets
-                  key: SQL_DB
+                  key: sql_db

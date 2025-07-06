@@ -1,0 +1,12 @@
+# fpg-api-service-testing.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: house-service
+  namespace: house
+spec:
+  selector:
+    app: house-finances
+  ports:
+    - port: 80
+      targetPort: 8501

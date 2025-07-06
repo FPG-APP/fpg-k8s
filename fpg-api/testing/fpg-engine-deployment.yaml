@@ -13,7 +13,7 @@ spec:
             - name: fpg-engine
               image: tobygaskell/fpg-engine:testing
               imagePullPolicy: Always
-              args: ["-current-round", "38", "-last-round", "38", "-init-results", "False", "-mode", "log"]
+              # args: ["-current-round", "38", "-last-round", "38", "-init-results", "False", "-mode", "log"]
               envFrom:
                 - secretRef:
                     name: engine-secrets
