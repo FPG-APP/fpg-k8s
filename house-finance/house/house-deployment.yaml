@@ -13,6 +13,7 @@ spec:
       labels:
         app: house-finances
     spec:
+      nodeName: fpg-worker
       containers:
         - name: house-finances
           image: tobygaskell/house-finances:latest

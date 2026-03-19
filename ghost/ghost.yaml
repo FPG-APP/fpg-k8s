@@ -1,0 +1,103 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ghost
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ghost-pvc
+  namespace: ghost
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ghost
+  namespace: ghost
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ghost
+  template:
+    metadata:
+      labels:
+        app: ghost
+    spec:
+      containers:
+        - name: ghost
+          image: ghost:5-alpine
+          ports:
+            - containerPort: 2368
+          env:
+            - name: url
+              value: "https://blog.fpg-app.com"
+            - name: database__client
+              value: mysql
+            - name: database__connection__host
+              value: "fpg-app.com"
+            - name: database__connection__user
+              value: "toby"
+            - name: database__connection__password
+              value: "2002Fish"
+            - name: database__connection__database
+              value: "ghost"
+            - name: security__staffDeviceVerification
+              value: "false"
+          volumeMounts:
+            - name: ghost-content
+              mountPath: /var/lib/ghost/content
+            - name: ghost-config-volume
+              mountPath: /var/lib/ghost/config.production.json
+              subPath: config.production.json
+      volumes:
+        - name: ghost-content
+          persistentVolumeClaim:
+            claimName: ghost-pvc
+        - name: ghost-config-volume
+          configMap:
+            name: ghost-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ghost-service
+  namespace: ghost
+spec:
+  type: ClusterIP
+  selector:
+    app: ghost
+  ports:
+    - port: 80
+      targetPort: 2368
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ghost-ingress
+  namespace: ghost
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  tls:
+    - hosts:
+        - "blog.fpg-app.com"
+      secretName: ghost-tls
+  ingressClassName: nginx
+  rules:
+    - host: blog.fpg-app.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: ghost-service
+                port:
+                  number: 80

@@ -13,6 +13,7 @@ spec:
       labels:
         app: fpg-api
     spec:
+      nodeName: fpg-worker
       containers:
         - name: fpg-api
           image: tobygaskell/fpg:testing

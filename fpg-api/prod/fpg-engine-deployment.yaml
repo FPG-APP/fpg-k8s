@@ -4,17 +4,26 @@ metadata:
   name: fpg-engine-cron
   namespace: prod
 spec:
-  schedule: "15 * * * *" 
+  schedule: "30 * * * *"
+  successfulJobsHistoryLimit: 1 # keep at most 1 successful job
+  failedJobsHistoryLimit: 1 # keep at most 1 failed job
   jobTemplate:
     spec:
+      backoffLimit: 1 # one retry, then stop
       template:
         spec:
+          restartPolicy: Never # don’t restart same pod
           containers:
             - name: fpg-engine
               image: tobygaskell/fpg-engine:latest
               imagePullPolicy: Always
-              # args: ["-current-round", "38", "-last-round", "38", "-init-results", "False", "-mode", "log"]
               envFrom:
                 - secretRef:
                     name: engine-secrets
-          restartPolicy: OnFailure
+          resources:
+            limits:
+              memory: "200Mi"
+              cpu: "500m"
+            requests:
+              memory: "100Mi"
+              cpu: "100m"
