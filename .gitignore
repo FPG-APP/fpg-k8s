@@ -177,3 +177,5 @@ fpg-api/prod/prod-secrets.yaml
 fpg-api/testing/testing-secrets.yaml
 house-finance/house/house-secrets.yaml
 ghost/config.production.json
+
+.vscode/*
